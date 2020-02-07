@@ -9,10 +9,9 @@
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i = 0, j = 0;
-	int stop = 0, temporal = 0;
+	size_t i = 0, j = 0, temporal;
 
-	if (size < 2)
+	if (array == NULL || size < 2)
 		return;
 	for (i = 0; i < size - 1; i++)
 	{
@@ -20,14 +19,11 @@ void bubble_sort(int *array, size_t size)
 		{
 			if (array[j] > array[j + 1])
 			{
-				stop++;
 				temporal = array[j];
 				array[j] = array[j + 1];
 				array[j + 1] = temporal;
 				print_array(array, size);
 			}
 		}
-		if (stop == 0)
-			break;
 	}
 }
