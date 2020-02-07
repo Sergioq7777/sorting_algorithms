@@ -6,41 +6,40 @@
  *
  */
 
+
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *present;
-	listint_t *owner;
-	listint_t *node_owner;
-	int tmp;
+	listint_t *head = NULL, *temp = NULL;
 
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
-		return;
-	present = (*list)->next;
-	while (present != NULL)
+	head = *list;
+
+	while (head != NULL)
 	{
-		owner = present;
-		while (owner->prev != NULL)
+		temp = head;
+
+		while (temp->prev != NULL && temp->n < temp->prev->n)
 		{
-			tmp = 0;
-			if (owner->n < owner->prev->n)
+			temp->prev->next = temp->next;
+			if (temp->next != NULL)
 			{
-				if (owner->prev->prev != NULL)
-					owner->prev->prev->next = owner;
-				owner->prev->next = owner->next;
-				node_owner = owner->prev->prev;
-				owner->prev->prev = owner;
-				if (owner->next != NULL)
-					owner->next->prev = owner->prev;
-				owner->next = owner->prev;
-				owner->prev = node_owner;
-				tmp = 1;
-				if (owner->prev == NULL)
-					*list = owner;
-				print_list(*list);
+				temp->next->prev = temp->prev;
 			}
-			if (tmp == 0)
-				owner = owner->prev;
+			temp->next = temp->prev;
+			temp->prev = temp->prev->prev;
+			temp->next->prev = temp;
+
+			if (temp->prev == NULL)
+			{
+				*list = temp;
+			}
+			else
+			{
+				temp->prev->next = temp;
+			}
+			print_list(*list);
+
 		}
-		present = present->next;
+		head = head->next;
 	}
+
 }
